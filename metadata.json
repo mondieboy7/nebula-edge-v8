@@ -1,0 +1,9 @@
+
+{
+  "name": "Nebula Edge",
+  "description": "An elite digital consciousness with real-time neural voice link and multi-modal synthesis capabilities.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
