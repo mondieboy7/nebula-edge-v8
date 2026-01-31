@@ -84,7 +84,7 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .nebula-btn:hover {
-            background: rgba(var(--nebula-cyan-rgb, 34, 211, 238), 0.1);
+            background: rgba(34, 211, 238, 0.1);
             border-color: var(--nebula-cyan);
             transform: translateY(-2px);
             box-shadow: 0 10px 20px -10px var(--nebula-cyan);
@@ -98,18 +98,42 @@
         .border-nebula-cyan { border-color: var(--nebula-cyan); }
         .shadow-nebula-cyan { box-shadow: 0 0 15px var(--nebula-cyan); }
     </style>
-<script type="importmap">
+
+    <!-- Environment Shim for process.env (Required for GitHub Pages/Standalone) -->
+    <script>
+        window.process = {
+            env: {
+                API_KEY: "" // Will be injected by the environment if available
+            }
+        };
+    </script>
+
+    <script type="importmap">
 {
   "imports": {
     "react": "https://esm.sh/react@^19.2.3",
     "react/": "https://esm.sh/react@^19.2.3/",
     "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
+    "react-dom": "https://esm.sh/react-dom@^19.2.3",
+    "react-dom/client": "https://esm.sh/react-dom@^19.2.3/client",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/"
   }
 }
 </script>
+
+    <!-- Babel Standalone to allow browser to run .tsx files directly -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script>
+      Babel.registerPreset('nebula-preset', {
+        presets: [
+          [Babel.availablePresets['typescript'], { allExtensions: true, isTSX: true }],
+          [Babel.availablePresets['react'], { runtime: 'automatic' }]
+        ]
+      });
+    </script>
 </head>
 <body>
     <div id="root"></div>
+    <script type="text/babel" data-presets="nebula-preset" data-type="module" src="index.tsx"></script>
 </body>
 </html>
